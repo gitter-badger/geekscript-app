@@ -17,11 +17,15 @@
          <password>sa</password>
       </security>
    </datasource>-->
-   <datasource jndi-name="java:jboss/datasources/PostgreSQLDS" enabled="true" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
-       <!--<connection-url>jdbc:postgresql://localhost:5432/geekscript</connection-url>-->
+
+    <!-- Connection is already defined in the jboss standalone.xml (in wildfly8 with openshift) -->
+
 <!--
+    <datasource jndi-name="java:jboss/datasources/PostgreSQLDS" enabled="true" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
+       &lt;!&ndash;<connection-url>jdbc:postgresql://localhost:5432/geekscript</connection-url>&ndash;&gt;
+&lt;!&ndash;
        <connection-url>postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT</connection-url>
--->
+&ndash;&gt;
        <connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
        <driver>postgresql</driver>
        <security>
@@ -34,5 +38,6 @@
           <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
       </driver>
    </drivers>
+   -->
 </datasources>
  
