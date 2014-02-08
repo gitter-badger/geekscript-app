@@ -48,13 +48,14 @@
                   <!-- Default context root of the web app is /geekscript-app-web. 
                   If a custom context root is needed, uncomment the following snippet to
                   register our War as a web module and set the contextRoot property -->
-                  <!--
                   <webModule>
                      <groupId>com.geekscript</groupId>
                      <artifactId>geekscript-app-web</artifactId>
+                     <contextRoot>/</contextRoot>
+<!--
                      <contextRoot>/geekscript-app</contextRoot>
+-->
                   </webModule>
-                  -->
                </modules>
             </configuration>
          </plugin>
