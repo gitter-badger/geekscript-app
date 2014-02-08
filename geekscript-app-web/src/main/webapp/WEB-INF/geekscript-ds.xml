@@ -17,12 +17,16 @@
          <password>sa</password>
       </security>
    </datasource>-->
-   <datasource jndi-name="java:jboss/datasources/GeekScriptDS" enabled="true" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
-       <connection-url>jdbc:postgresql://localhost:5432/geekscript</connection-url>
+   <datasource jndi-name="java:jboss/datasources/PostgreSQLDS" enabled="true" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
+       <!--<connection-url>jdbc:postgresql://localhost:5432/geekscript</connection-url>-->
+<!--
+       <connection-url>postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT</connection-url>
+-->
+       <connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/${env.OPENSHIFT_APP_NAME}</connection-url>
        <driver>postgresql</driver>
        <security>
-         <user-name>fedora</user-name>
-         <password>fedora</password>
+           <user-name>${env.OPENSHIFT_POSTGRESQL_DB_USERNAME}</user-name>
+           <password>${env.OPENSHIFT_POSTGRESQL_DB_PASSWORD}</password>
        </security>
    </datasource>
    <drivers>

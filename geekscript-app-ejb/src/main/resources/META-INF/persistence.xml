@@ -16,8 +16,7 @@
       </properties>
    </persistence-unit>-->
     <persistence-unit name="primary">
-        <!--<jta-data-source>java:/SourceForgeDS</jta-data-source>-->
-        <jta-data-source>java:jboss/datasources/GeekScriptDS</jta-data-source>
+        <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
         <class>model.User</class>
         <properties>
             <!-- Properties for Hibernate -->
