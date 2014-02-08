@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+<!--  <ul class="menu">
+    <li><a href="#/view1">view1</a></li>
+    <li><a href="#/view2">view2</a></li>
+  </ul>
+
+  <div ng-view></div>
+
+  <div>Angular seed app: v<span app-version></span></div>-->
+
+  <!-- Adding the ng-app declaration to initialize AngularJS -->
+  <div id="main" ng-app>
+      <!-- The navigation menu will get the value of the "active" variable as a class.
+           The $event.preventDefault() stops the page from jumping when a link is clicked. -->
+
+      <nav class="{{active}}" ng-click="$event.preventDefault()">
+
+          <!-- When a link in the menu is clicked, we set the active variable -->
+
+          <a href="#" class="home" ng-click="active='home'">Home</a>
+          <a href="#" class="projects" ng-click="active='projects'">Projects</a>
+          <a href="#" class="services" ng-click="active='services'">Services</a>
+          <a href="#" class="contact" ng-click="active='contact'">Contact</a>
+      </nav>
+
+      <!-- ng-show will show an element if the value in the quotes is truthful,
+           while ng-hide does the opposite. Because the active variable is not set
+           initially, this will cause the first paragraph to be visible. -->
+
+      <p ng-hide="active">Please click a menu item</p>
+      <p ng-show="active">You chose <b>{{active}}</b></p>
+  </div>
+
+<!-- Inline Edit -->
+<!-- When this element is clicked, hide the tooltip -->
+<div id="main" ng-app ng-controller="InlineEditorController" ng-click="hideTooltip()">
+
+    <!-- This is the tooltip. It is shown only when the showtooltip variable is truthful -->
+    <div class="tooltip" ng-click="$event.stopPropagation()" ng-show="showtooltip">
+
+        <!-- ng-model binds the contents of the text field with the "value" model.
+         Any changes to the text field will automatically update the value, and
+         all other bindings on the page that depend on it.  -->
+        <input type="text" ng-model="value" />
+    </div>
+
+    <!-- Call a method defined in the InlineEditorController that toggles
+     the showtooltip variable -->
+    <p ng-click="toggleTooltip($event)">{{value}}</p>
+
+</div>
+
+
+
+
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-route.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+</body>
+</html>
