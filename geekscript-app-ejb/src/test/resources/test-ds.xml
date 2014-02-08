@@ -16,7 +16,7 @@
          <password>sa</password>
       </security>
    </datasource>-->
-    <datasource jndi-name="java:jboss/datasources/GeekTestDS" enabled="true" use-java-context="true" pool-name="PostgreSQLDS" use-ccm="true">
+    <datasource jndi-name="java:jboss/datasources/GeekTestDS" enabled="true" use-java-context="true" pool-name="GeekTestDS" use-ccm="true">
         <connection-url>jdbc:postgresql://localhost:5432/geekscript</connection-url>
         <driver>postgresql</driver>
         <security>
