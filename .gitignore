@@ -1,0 +1,16 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IDEA Files #
+*.iml
+.idea
+
+# Maven Target #
+target
+
+# Others #
+pom.xml.old
