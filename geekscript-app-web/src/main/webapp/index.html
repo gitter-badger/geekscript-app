@@ -1,9 +1,32 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
-  <meta charset="utf-8">
-  <title>My AngularJS App</title>
-  <link rel="stylesheet" href="css/app.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JEE 7 with AngularJS">
+    <meta name="author" content="sriram">
+
+    <title>Geekscript</title>
+
+    <link rel="stylesheet" href="css/app.css"/>
+
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="css/cover.css">
+
+    <link rel="stylesheet" href="css/signin.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css" id="holderjs-style"></style>
 </head>
 <body>
 <!--  <ul class="menu">
@@ -15,61 +38,128 @@
 
   <div>Angular seed app: v<span app-version></span></div>-->
 
-  <!-- Adding the ng-app declaration to initialize AngularJS -->
-  <div id="main" ng-app>
-      <!-- The navigation menu will get the value of the "active" variable as a class.
-           The $event.preventDefault() stops the page from jumping when a link is clicked. -->
+<!--
+    &lt;!&ndash; Adding the ng-app declaration to initialize AngularJS &ndash;&gt;
+    <div id="main" ng-app>
+        &lt;!&ndash; The navigation menu will get the value of the "active" variable as a class.
+             The $event.preventDefault() stops the page from jumping when a link is clicked. &ndash;&gt;
 
-      <nav class="{{active}}" ng-click="$event.preventDefault()">
+        <nav class="{{active}}" ng-click="$event.preventDefault()">
 
-          <!-- When a link in the menu is clicked, we set the active variable -->
+            &lt;!&ndash; When a link in the menu is clicked, we set the active variable &ndash;&gt;
 
-          <a href="#" class="home" ng-click="active='home'">Home</a>
-          <a href="#" class="projects" ng-click="active='projects'">Projects</a>
-          <a href="#" class="services" ng-click="active='services'">Services</a>
-          <a href="#" class="contact" ng-click="active='contact'">Contact</a>
-      </nav>
+            <a href="#" class="home" ng-click="active='home'">Home</a>
+            <a href="#" class="projects" ng-click="active='projects'">Projects</a>
+            <a href="#" class="services" ng-click="active='services'">Services</a>
+            <a href="#" class="contact" ng-click="active='contact'">Contact</a>
+        </nav>
 
-      <!-- ng-show will show an element if the value in the quotes is truthful,
-           while ng-hide does the opposite. Because the active variable is not set
-           initially, this will cause the first paragraph to be visible. -->
+        &lt;!&ndash; ng-show will show an element if the value in the quotes is truthful,
+             while ng-hide does the opposite. Because the active variable is not set
+             initially, this will cause the first paragraph to be visible. &ndash;&gt;
 
-      <p ng-hide="active">Please click a menu item</p>
-      <p ng-show="active">You chose <b>{{active}}</b></p>
-  </div>
+        <p ng-hide="active">Please click a menu item</p>
 
-<!-- Inline Edit -->
-<!-- When this element is clicked, hide the tooltip -->
-<div id="main" ng-app ng-controller="InlineEditorController" ng-click="hideTooltip()">
-
-    <!-- This is the tooltip. It is shown only when the showtooltip variable is truthful -->
-    <div class="tooltip" ng-click="$event.stopPropagation()" ng-show="showtooltip">
-
-        <!-- ng-model binds the contents of the text field with the "value" model.
-         Any changes to the text field will automatically update the value, and
-         all other bindings on the page that depend on it.  -->
-        <input type="text" ng-model="value" />
+        <p ng-show="active">You chose <b>{{active}}</b></p>
     </div>
+-->
 
-    <!-- Call a method defined in the InlineEditorController that toggles
-     the showtooltip variable -->
-    <p ng-click="toggleTooltip($event)">{{value}}</p>
+<!--    &lt;!&ndash; Inline Edit &ndash;&gt;
+&lt;!&ndash; When this element is clicked, hide the tooltip &ndash;&gt;
+    <div id="main" ng-app ng-controller="InlineEditorController" ng-click="hideTooltip()">
+
+        &lt;!&ndash; This is the tooltip. It is shown only when the showtooltip variable is truthful &ndash;&gt;
+        <div class="tooltip" ng-click="$event.stopPropagation()" ng-show="showtooltip">
+
+            &lt;!&ndash; ng-model binds the contents of the text field with the "value" model.
+             Any changes to the text field will automatically update the value, and
+             all other bindings on the page that depend on it.  &ndash;&gt;
+            <input type="text" ng-model="value"/>
+        </div>
+
+        &lt;!&ndash; Call a method defined in the InlineEditorController that toggles
+         the showtooltip variable &ndash;&gt;
+        <p ng-click="toggleTooltip($event)">{{value}}</p>
+
+    </div>-->
+
+<div class="container">
+
+    <form class="form-signin" role="form">
+        <!--
+                    <h2 class="form-signin-heading">Please sign in</h2>
+        -->
+        <input class="form-control" placeholder="Email address" required="" autofocus="" type="email">
+        <input class="form-control" placeholder="Password" required="" type="password">
+        <label class="checkbox">
+            <input value="remember-me" type="checkbox"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
 
 </div>
 
+<!--
+    <div class="site-wrapper">
+
+        <div class="site-wrapper-inner">
+
+            <div class="cover-container">
+
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand">Geekscript</h3>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Features</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">Cover your page.</h1>
+
+                    <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download,
+                        edit the text, and add your own fullscreen background photo to make it your own.</p>
+
+                    <p class="lead">
+                        <a href="#" class="btn btn-lg btn-default">Learn more</a>
+                    </p>
+                </div>
+
+                <div class="mastfoot">
+                    <div class="inner">
+                        <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a
+                                href="https://twitter.com/mdo">@mdo</a>.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+-->
 
 
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+-->
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
 
+<!-- always load the scripts at last -->
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-  -->
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular/angular-route.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="lib/jquery/jquery.js"></script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
