@@ -1,4 +1,11 @@
 geekscript-app
 ==============
 
-JEE 7 + AngularJS Demo App on WildFly 8 using OpenShift
+It's a Java Based Blogging Application. It's completely under development.
+
+Technology Stack :
+
+- JEE 7
+- AngularJS (UI)
+- PostgreSQL
+- Arquillian (Test)

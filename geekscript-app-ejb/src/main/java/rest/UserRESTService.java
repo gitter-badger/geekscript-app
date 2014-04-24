@@ -1,20 +1,15 @@
 package rest;
 
-import data.UserRepository;
-import service.UserRegistrationBean;
 import model.User;
+import service.UserService;
 
 import java.util.*;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
-import javax.validation.Validator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,33 +21,23 @@ import javax.ws.rs.core.Response;
 @Path("/users")
 public class UserRESTService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Inject
     private Logger log;
 
     @Inject
-    private Validator validator;
-
-    @Inject
-    private UserRegistrationBean registration;
-
-    @Inject
-    private UserRepository repository;
+    private UserService userService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> listAllUsers() {
-//        final List<User> users = entityManager.createQuery("select u from User u order by u.name").getResultList();
-        return repository.findAllOrderedByName();
+          return userService.listAllUsers();
     }
 
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @Produces(MediaType.APPLICATION_JSON)
     public User lookupMemberById(@PathParam("id") long id) {
-        User user = repository.findById(id);
+        User user = userService.getUser(id);
         if (user == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
@@ -67,11 +52,7 @@ public class UserRESTService {
         Response.ResponseBuilder builder = null;
 
         try {
-            // Validates user using bean validation
-            validateUser(user);
-
-            registration.register(user);
-
+            userService.createUser(user);
             // Create an "ok" response
             builder = Response.ok();
         } catch (ConstraintViolationException ce) {
@@ -92,20 +73,6 @@ public class UserRESTService {
         return builder.build();
     }
 
-    private void validateUser(User user) throws ConstraintViolationException, ValidationException {
-        // Create a bean validator and check for issues.
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-
-        if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
-        }
-
-        // Check the uniqueness of the email address
-        if (emailAlreadyExists(user.getEmail())) {
-            throw new ValidationException("Unique Email Violation");
-        }
-    }
-
     private Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
         log.fine("Validation completed. violations found: " + violations.size());
 
@@ -117,16 +84,4 @@ public class UserRESTService {
 
         return Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
     }
-
-    public boolean emailAlreadyExists(String email) {
-        User user = null;
-        try {
-            user = repository.findByEmail(email);
-        } catch (NoResultException e) {
-            // ignore
-        }
-        return user != null;
-    }
-
-
 }

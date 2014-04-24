@@ -30,6 +30,11 @@ public class User {
     private String name;
 
     @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "password", length = 128)
+    private String password;
+
+    @NotNull
     @NotEmpty
     @Email
     @Column(name = "email_id")
@@ -72,4 +77,13 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

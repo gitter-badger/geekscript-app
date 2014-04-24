@@ -18,6 +18,7 @@
     <persistence-unit name="primary">
         <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
         <class>model.User</class>
+        <class>model.Session</class>
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

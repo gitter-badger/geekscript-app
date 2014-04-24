@@ -14,9 +14,10 @@
 
    <!-- Example configuration for a remote JBoss AS 7 instance -->
    <container qualifier="jboss" default="true">
-      <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
+       <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
+       <!-- If you want to use the JBOSS_HOME environment variable, just delete the jbossHome property -->
       <configuration>
-         <property name="jbossHome">/u1/src/ctf/apps/collabnet-core/saturn/sandbox/sourceforge/jboss/jboss-7.1.1.Final/</property>
+         <property name="jbossHome">/opt/jboss/wildfly-8.0.0.Final</property>
           <property name="outputToConsole">true</property>
       </configuration>
    </container>

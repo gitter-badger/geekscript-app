@@ -1,97 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <artifactId>geekscript-app</artifactId>
-      <groupId>com.geekscript</groupId>
-      <version>1.0-SNAPSHOT</version>
-   </parent>
+    <parent>
+        <artifactId>geekscript-app</artifactId>
+        <groupId>com.geekscript</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-   <artifactId>geekscript-app-ear</artifactId>
-   <packaging>ear</packaging>
+    <artifactId>geekscript-app-ear</artifactId>
+    <packaging>ear</packaging>
 
-   <name>geekscript-app EAR module</name>
+    <name>geekscript-app EAR module</name>
 
-   <dependencies>
+    <properties>
+        <wildfly-home>/opt/jboss/wildfly-8.0.0.Final</wildfly-home>
+        <wildfly-hostname>127.0.0.1</wildfly-hostname>
+        <wildfly-port>9990</wildfly-port>
+        <wildfly-username>admin</wildfly-username>
+        <wildfly-password>admin</wildfly-password>
+    </properties>
 
-      <!-- Depend on the ejb module and war so that we can package them -->
-      <dependency>
-         <groupId>com.geekscript</groupId>
-         <artifactId>geekscript-app-web</artifactId>
-         <type>war</type>
-      </dependency>
-      <dependency>
-         <groupId>com.geekscript</groupId>
-         <artifactId>geekscript-app-ejb</artifactId>
-         <type>ejb</type>
-      </dependency>
-   </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.geekscript</groupId>
+            <artifactId>geekscript-app-web</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.geekscript</groupId>
+            <artifactId>geekscript-app-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
 
-   <build>
-      <finalName>geekscript-app</finalName>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-ear-plugin</artifactId>
-            <version>2.6</version>
-            <configuration>
-               <!-- Tell Maven we are using Java EE 6 -->
-               <version>6</version>
-               <!-- Use Java EE ear libraries as needed. Java EE ear libraries 
-                  are in easy way to package any libraries needed in the ear, and automatically 
-                  have any modules (EJB-JARs and WARs) use them -->
-               <defaultLibBundleDir>lib</defaultLibBundleDir>
-               <modules>
-                  <!-- Default context root of the web app is /geekscript-app-web. 
-                  If a custom context root is needed, uncomment the following snippet to
-                  register our War as a web module and set the contextRoot property -->
-                  <webModule>
-                     <groupId>com.geekscript</groupId>
-                     <artifactId>geekscript-app-web</artifactId>
-                     <contextRoot>/</contextRoot>
-<!--
-                     <contextRoot>/geekscript-app</contextRoot>
--->
-                  </webModule>
-               </modules>
-            </configuration>
-         </plugin>
-         <!-- The JBoss AS plugin deploys your ear to a local JBoss AS container -->
-         <!-- Due to Maven's lack of intelligence with EARs we need to configure 
-            the jboss-as maven plugin to skip deployment for all modules. We then enable 
-            it specifically in the ear module. -->
-          <!-- To use, run: mvn package jboss-as:deploy -->
-          <plugin>
-            <groupId>org.jboss.as.plugins</groupId>
-            <artifactId>jboss-as-maven-plugin</artifactId>
-            <configuration>
-               <skip>false</skip>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
-   
-   <profiles>
-      <profile>
-         <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-         <!-- Use this profile for any OpenShift specific customization your app will need. -->
-         <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
-         <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-         <id>openshift</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <artifactId>maven-ear-plugin</artifactId>
-                  <version>2.6</version>
-                  <configuration>
-                     <outputDirectory>deployments</outputDirectory>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-   </profiles>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>${version.ear.plugin}</version>
+                <configuration>
+                    <!-- Tell Maven we are using Java EE 7 -->
+                    <version>6</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <!-- Default context root of the web app is /geekscript-app-web.
+                        If a custom context root is needed, uncomment the following snippet to
+                        register our War as a web module and set the contextRoot property -->
+                        <webModule>
+                            <groupId>com.geekscript</groupId>
+                            <artifactId>geekscript-app-web</artifactId>
+                            <contextRoot>/</contextRoot>
+                            <!--
+                                <contextRoot>/geekscript-app</contextRoot>
+                            -->
+                        </webModule>
+                    </modules>
+                    <fileNameMapping>no-version</fileNameMapping>
+                </configuration>
+            </plugin>
+
+            <!-- WildFly plugin to deploy ear -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <filename>${project.artifactId}.ear</filename>
+                    <skip>false</skip>
+                    <!--
+                                        <hostname>${wildfly-hostname}</hostname>
+                                        <port>${wildfly-port}</port>
+                                        <username>${wildfly-username}</username>
+                                        <password>${wildfly-password}</password>
+                    -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

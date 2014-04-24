@@ -3,12 +3,14 @@ package data;
 import model.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by sriram on 28/01/14.
@@ -18,6 +20,13 @@ public class UserRepository {
 
     @Inject
     private EntityManager em;
+
+    @Inject
+    private Logger logger;
+
+
+    @Inject
+    private Event<User> userEventSrc;
 
 
     public User findById(Long id) {
@@ -41,6 +50,13 @@ public class UserRepository {
         Root<User> userRoot = userCriteriaQuery.from(User.class);
         userCriteriaQuery.select(userRoot).orderBy(criteriaBuilder.asc(userRoot.get("name")));
         return em.createQuery(userCriteriaQuery).getResultList();
+    }
+
+
+    public void register(User user) {
+        logger.info("Registering " + user.getName());
+        em.persist(user);
+        userEventSrc.fire(user);
     }
 
 
